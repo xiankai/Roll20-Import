@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="../../css/widgets.css" rel="stylesheet" type="text/css">
+		<link href="../../css/chrome_shared.css" rel="stylesheet" type="text/css">
+		<link href="popup.css" rel="stylesheet" type="text/css">
+		<script src="../../js/jquery/jquery.min.js"></script>
+	</head>
+	<body>
+		<fieldset>
+			<button id="import">Copy FROM Myth-Weavers!</button>
+			<p>Last successfully extracted at <span id="timestamp_import"></span></p>
+		</fieldset>
+		<input type="text" placeholder="Your Character Name" id="character" required/>
+		<input type="text" placeholder="Your MW Sheet ID" id="sheetid"/>
+		<fieldset>
+			<button id="export">Copy TO Roll20!</button>
+			<p>Last successfully dumped at <span id="timestamp_export"></span></p>
+		</fieldset>		
+		<script src="popup.js"></script>
+	</body>
+</html>
