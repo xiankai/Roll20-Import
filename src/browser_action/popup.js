@@ -1,25 +1,57 @@
 $('#export').on('click', function() {
+	$('.loading').show();
+
 	chrome.tabs.query({url: "*://app.roll20.net/editor/"}, function(tabs) {
+		if (tabs.length < 1) {
+			$('.loading').hide();
+			$('#export_error').html("Could not export. Make sure your Roll20 campaign is open in a tab and refresh it.");	
+			return;
+		}
+
 		chrome.tabs.sendMessage(tabs[0].id, {
 			action: "loadAttributes",
 			payload: localStorage,
 			character: $('#character').val()
 		}, function(response) {
-			$('#timestamp_export').html(getCurrentTime());
+			$('.loading').hide();
+
+			if (chrome.runtime.lastError || !response) {
+				$('#export_error').html("Could not export. Make sure your Roll20 campaign is open in a tab and refresh it.");
+				return;
+			} else {
+				$('#export_error').html("");
+			}
+
+			$('#timestamp_export').html(getCurrentTime()).change();
 		});
 	});
 });
 
 $('#import').on('click', function() {
 	chrome.tabs.query({url: "*://www.myth-weavers.com/sheetview.php?sheetid=" + getSheetID()}, function(tabs) {
+		if (tabs.length < 1) {
+			$('#import_error').html("Could not import. Make sure your myth-weavers sheet is open in a tab and refresh it.");
+			return;
+		}
+
 		chrome.tabs.sendMessage(tabs[0].id, {
 			action: "getAttributes"
 		}, function(attributes) {
+			if (chrome.runtime.lastError || !attributes) {
+				$('#import_error').html("Could not import. Make sure your myth-weavers sheet is open in a tab and refresh it.");
+				return;
+			} else {
+				$('#import_error').html("");
+			}
+
 			localStorage.clear();
+
+			$('#character').val(attributes['Name']).change();
+
 			for (var name in attributes) {
 				localStorage.setItem(name, attributes[name]);
 			}
-			$('#timestamp_import').html(getCurrentTime());
+			$('#timestamp_import').html(getCurrentTime()).change();
 		});
 	});
 });
@@ -33,22 +65,19 @@ $('#sheetid').on('change', function() {
 	chromeSetItem('sheetid', getSheetID());
 });
 
+$('#timestamp_import').on('change', function() {
+	chromeSetItem('timestamp_import', $(this).html());
+});
+
+$('#timestamp_export').on('change', function() {
+	chromeSetItem('timestamp_export', $(this).html());
+});
+
 // Populate existing data
-chromeGetItem('character', function(val) {
-	$('#character').val(val);
-});
-
-chromeGetItem('sheetid', function(val) {
-	$('#sheetid').val(val);
-});
-
-chromeGetItem('timestamp_import', function(val) {
-	$('#timestamp_import').html(val);
-});
-
-chromeGetItem('timestamp_export', function(val) {
-	$('#timestamp_export').html(val);
-});
+chromeGetItem('character');
+chromeGetItem('sheetid');
+chromeGetItem('timestamp_import');
+chromeGetItem('timestamp_export');
 
 function getSheetID() {
 	var input = $('#sheetid').val();
@@ -72,8 +101,8 @@ function chromeSetItem(key, val) {
 	chrome.storage.local.set(data);
 }
 
-function chromeGetItem(key, callback) {
+function chromeGetItem(key) {
 	chrome.storage.local.get(key, function(item) {
-		callback(item[key]);
+		$('#' + key).html(item[key]).val(item[key]);
 	});
 }

@@ -11,12 +11,19 @@
 			<button id="import">Copy FROM Myth-Weavers!</button>
 			<p>Last successfully extracted at <span id="timestamp_import"></span></p>
 		</fieldset>
+
+		<p class="error" id="import_error"></p>
+
 		<input type="text" placeholder="Your Character Name" id="character" required/>
 		<input type="text" placeholder="Your MW Sheet ID" id="sheetid"/>
+
 		<fieldset>
 			<button id="export">Copy TO Roll20!</button>
+			<div class="loading"></div>
 			<p>Last successfully dumped at <span id="timestamp_export"></span></p>
 		</fieldset>		
+
+		<p class="error" id="export_error"></p>
 		<script src="popup.js"></script>
 	</body>
 </html>

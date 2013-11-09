@@ -14,3 +14,15 @@ body {
 #clipboard {
 	display: none;
 }
+
+.error {
+	color: red;
+}
+
+.loading {
+	background-image: url('../../icons/loading.gif');
+	width: 16px;
+	height: 16px;
+	background-size: 100%;
+	display: none;
+}

@@ -1,6 +1,7 @@
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action == "loadAttributes") {
         fillAttributes(request.payload, request.character);
+        sendResponse(true);
     }
 
     if (request.action == "getAttributes") {
