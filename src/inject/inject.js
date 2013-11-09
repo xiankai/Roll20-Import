@@ -16,6 +16,8 @@ function getAttributes() {
         i, j, k, m,
         name, val, skill
         whitelist = [
+            'Name',
+            'Level',
             'HP',
             'AC',
             'ACTouch',
@@ -24,7 +26,9 @@ function getAttributes() {
             'Speed',
             'Fort',
             'Reflex',
-            'Will'
+            'Will',
+            'MBAB',
+            'RBAB'
         ],
         abilities = ['Str', 'Dex', 'Con', 'Int', 'Wis', 'Cha'];
 
@@ -44,6 +48,10 @@ function getAttributes() {
     for (k in whitelist) {
         name = whitelist[k];
         val = $('input[name=' + name + ']').val();
+
+        if (typeof val === 'string') {
+            val = val.replace('+', '');
+        }
 
         if (name.substr(0, 5) === 'Skill') {
             // Discard all non-numbers to get the index
@@ -115,6 +123,9 @@ function fillAttributes(attributes, character) {
 
 function addAttribute(key, val) {
     $('.addattrib').click();
+    if (key === "Name") {
+        return;
+    }
 
     // Recently added attribute
     $('.attrib:last').find('.attrname').find('input').val(key);
