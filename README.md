@@ -55,7 +55,7 @@ Roadmap
 
 While this started as a personal utility script, I can see how the need for synchronizing external character sheets outside of Roll20 can get useful. If you have any suggestions or bugs to report, I would appreciate it a lot if you could raise a GitHub issue!
 
-	[1]:http://www.myth-weavers.com/sheetindex.php
-	[2]:https://wiki.roll20.net/Journal
-	[3]:http://help.roll20.net/macros/
-	[4]:https://wiki.roll20.net/API:Introduction
+  [1]:http://www.myth-weavers.com/sheetindex.php
+  [2]:https://wiki.roll20.net/Journal
+  [3]:http://help.roll20.net/macros/
+  [4]:https://wiki.roll20.net/API:Introduction
