@@ -24,6 +24,21 @@
 		</fieldset>		
 
 		<p class="error" id="export_error"></p>
+
+		<fieldset>
+			<button class="roll" data-type="attack">Attack Roll</button>
+			<select id="attack_type">
+				<option value="melee">Melee</option>
+				<option value="range">Range</option>
+			</select>
+			<select id="attack_mod">
+				<option value="normal">Normal</option>
+				<option value="flat">Range</option>
+				<option value="touch">Touch</option>
+			</select>
+		</fieldset>
+
 		<script src="popup.js"></script>
+		<script src="roll.js"></script>
 	</body>
 </html>

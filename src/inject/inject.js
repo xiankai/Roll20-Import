@@ -7,7 +7,20 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action == "getAttributes") {
         sendResponse(getAttributes());
     }
+
+    if (request.action == 'rollDie') {
+        rollDie(request.macro);
+    }
 });
+
+function rollDie(macro) {
+    var input_area = $('#textchat-input');
+    var textarea = input_area.find('textarea');
+    var temp = textarea.val();
+    textarea.val(macro);
+    input_area.find('button:contains(Send)').click();
+    textarea.val(temp);
+}
 
 function getAttributes() {
     // HERE, I DECLARE, MINE VARS
