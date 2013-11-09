@@ -87,11 +87,11 @@ function getSheetID() {
 function getCurrentTime() {
 	var currentdate = new Date(); 
 	var datetime = currentdate.getFullYear() + "-" +
-					(currentdate.getMonth()+1)  + "-" +
-					currentdate.getDate() + " @ " +
-					currentdate.getHours() + ":" +
-					currentdate.getMinutes() + ":" +
-					currentdate.getSeconds();
+					pad(currentdate.getMonth()+1, 2)  + "-" +
+					pad(currentdate.getDate(), 2) + " @ " +
+					pad(currentdate.getHours(), 2) + ":" +
+					pad(currentdate.getMinutes(), 2) + ":" +
+					pad(currentdate.getSeconds(), 2);
     return datetime;
 }
 
@@ -105,4 +105,10 @@ function chromeGetItem(key) {
 	chrome.storage.local.get(key, function(item) {
 		$('#' + key).html(item[key]).val(item[key]);
 	});
+}
+
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
