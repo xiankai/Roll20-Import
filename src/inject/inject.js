@@ -86,48 +86,60 @@ function getAttributes() {
 }
 
 function fillAttributes(attributes, character) {
-    var target_window;
-    var char_id;
+    var parent_window, char_id;
 
     $('.character .namecontainer').each(function() {
         if ($.trim($(this).text()).substr(0, character.length) === character) {
             // Get char ID for future reference
             char_id = $(this).parents('.character').data('characterid');
 
-            // Open dialog
-            $(this).parents('.character').click();
+            if ($('.dialog[data-characterid=' + char_id + ']').length < 1) {
+                // Create new dialog
+                $(this).parents('.character').click();
+            }
 
             // Store dialog reference
             target_window = $('.dialog[data-characterid=' + char_id + ']');
+            parent_window = target_window.parents('.ui-dialog');
             return false;
         }
-    })
+    });
 
     // Edit character
-    target_window.parents('.ui-dialog').find('.ui-dialog-titlebar .editcharacter').click();
+    parent_window.find('.ui-dialog-titlebar .editcharacter').click();
 
     // Edit attributes
-    $('a[data-tab="attributesabilities"]').click();
+    target_window.find('a[data-tab="attributesabilities"]').click();
     
     // Clear attributes
-    $('.deleteattr').click();
+    target_window.find('.deleteattr').click();
 
     // Fill in attributes
     for (var name in attributes) {
-        addAttribute(name, attributes[name]);
+        addAttribute.call(target_window, name, attributes[name]);
     }
 
     // Save
     target_window.find("button:contains('Save Changes')").click();
+
+    // Close
+    closeWindow();
+
+    setTimeout(closeWindow, 500);
+}
+
+function closeWindow() {
+    $(".ui-icon-closethick").click();
 }
 
 function addAttribute(key, val) {
-    $('.addattrib').click();
     if (key === "Name") {
         return;
     }
 
+    $(this).find('.addattrib').click();
+
     // Recently added attribute
-    $('.attrib:last').find('.attrname').find('input').val(key);
-    $('.attrib:last').find('.current').find('input').val(val);
+    $(this).find('.attrib:last').find('.attrname').find('input').val(key);
+    $(this).find('.attrib:last').find('.current').find('input').val(val);
 }
