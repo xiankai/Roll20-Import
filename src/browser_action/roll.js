@@ -5,8 +5,8 @@ $('.roll').click(function() {
 
 	switch ($(this).data('type')) {
 		case 'attack':
-			macro = "/roll 1d20+@{" + localStorage["Name"] + "|" + getAttackerType() + "}>@{selected|" + getTargetAC() + "}";
-			macro += " " + type_name + touch + "attack against " + flat + localStorage["Name"];
+			macro = "/roll {1d20+@{" + localStorage["Name"] + "|" + getAttackerType() + "}}>@{selected|" + getTargetAC() + "}";
+			macro += " " + type_name + touch + "attack against " + flat + "@{selected|token_name}";
 			break;
 		case 'spell':
 			macro = "/roll";
