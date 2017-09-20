@@ -1,7 +1,7 @@
 $('#export').on('click', function() {
 	$('.loading').show();
 
-	chrome.tabs.query({url: "*://app.roll20.net/editor/"}, function(tabs) {
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		if (tabs.length < 1) {
 			$('.loading').hide();
 			$('#export_error').html("Could not export. Make sure your Roll20 campaign is open in a tab and refresh it.");	
@@ -28,7 +28,7 @@ $('#export').on('click', function() {
 });
 
 $('#import').on('click', function() {
-	chrome.tabs.query({url: "*://www.myth-weavers.com/sheetview.php?sheetid=" + getSheetID()}, function(tabs) {
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		if (tabs.length < 1) {
 			$('#import_error').html("Could not import. Make sure your myth-weavers sheet is open in a tab and refresh it.");
 			return;
